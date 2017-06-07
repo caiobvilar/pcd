@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <mpi.h>
-
+#include <omp.h>
 float Wx[][];
 float Wy[][];
 float X[][];
