@@ -13,6 +13,9 @@ int main(int argc, char *argv[])
 	float X[][];
 	float y[][];
 	float D[][];
+	//TODO:
+	//	- inserir dados das matrizes por arquivos CSV
+	//	- funcoes que processem o csv e preencha as matrizes.
 	produtomatricial(Wx[0],X[0],A[0],neuronios,entradas+1,exemplos);
 	funcaoAtivacao(A[0],Z[0],neuronios,exemplos);
 	produtomatricial(Wy[0],Z[0],C[0],saidas,neuronios+1,exemplos);
