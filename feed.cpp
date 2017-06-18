@@ -16,15 +16,18 @@ void funcaoAtivacao(float *in,float *out,int row, int col);
 //testando XOR com diferentes quantidades de NEURONS
 int main(int argc, char *argv[])
 {
-	float Wx[NEURONS][INPUTS+1];
-	float Wy[OUTPUTS][NEURONS+1];
 	float X[INPUTS+1][SAMPLES];
-	float Y[][];
+	float Wx[NEURONS][INPUTS+1];
+	float IDF1[NEURONS][SAMPLES];
+	float ATV1[NEURONS][SAMPLES];
+	float Wy[OUTPUTS][NEURONS+1];
+	float IDF2[OUTPUTS][SAMPLES]
+	float ATV2[OUTPUTS][SAMPLES];
 	float D[OUTPUTS][SAMPLES];
-	produtomatricial(Wx[0],X[0],A[0],NEURONS,INPUTS+1,SAMPLES);
-	funcaoAtivacao(A[0],Z[0],NEURONS,SAMPLES);
-	produtomatricial(Wy[0],Z[0],C[0],OUTPUTS,NEURONS+1,SAMPLES);
-	funcaoAtivacao(C[0],Y[0],OUTPUTS,SAMPLES);
+	produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);
+	funcaoAtivacao(IDF1[0],ATV1[0],NEURONS,SAMPLES);
+	produtomatricial(Wy[0],ATV1[0],IDF2,OUTPUTS,NEURONS+1,SAMPLES);
+	funcaoAtivacao(IDF2[0],ATV2[0],OUTPUTS,SAMPLES);
 	return 0;
 }
 
