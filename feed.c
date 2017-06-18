@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <omp.h>
 
-
 void produtomatricial(float *in1,float *in2,float *out,int row1, int row2, int col1);
 void funcaoAtivacao(float *in,float *out,int row, int col);
 
@@ -55,4 +54,3 @@ void funcaoAtivacao(float *in,float *out,int row, int col)
 		}
 	}
 }
-
