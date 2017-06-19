@@ -1,11 +1,15 @@
 #include <stdio.h>
+#include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 #include <omp.h>
 
-#define	NEURONS
-#define INPUTS
-#define OUPUTS
-#define SAMPLES
+/*
+#define	NEURONS // Number of neurons in hidden layer
+#define INPUTS	// Amount of inputs
+#define OUPUTS	// Number of outputs
+#define SAMPLES // Number of samples
+*/
 
 //TODO:
 //	- processar dados de arquivo CSV para preencher os pesos das camadas.
@@ -13,9 +17,22 @@
 
 void produtomatricial(float *in1,float *in2,float *out,int row1, int row2, int col1);
 void funcaoAtivacao(float *in,float *out,int row, int col);
+void Usage();
 //testando XOR com diferentes quantidades de NEURONS
 int main(int argc, char *argv[])
 {
+	if (argc < 5) {
+		Usage();
+		return -1;
+	}
+
+	int NEURONS, INPUTS, OUTPUTS, SAMPLES;
+
+	NEURONS = strtol(argv[1], NULL, 10);
+	INPUTS 	= strtol(argv[2], NULL, 10);
+	OUTPUTS = strtol(argv[3], NULL, 10);
+	SAMPLES = strtol(argv[4], NULL, 10);
+
 	float X[INPUTS+1][SAMPLES];
 	float Wx[NEURONS][INPUTS+1];
 	float IDF1[NEURONS][SAMPLES];
@@ -31,6 +48,10 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+void Usage(){
+	cout << "Some arguments are missing. \n";
+	cout << "Usage: ./feed <NEURONS> <INPUTS> <OUTPUTS> <SAMPLES> \n"<<;
+}
 
 void produtomatricial(float *in1,float *in2,float *out,int row1, int col1, int col2)
 {
