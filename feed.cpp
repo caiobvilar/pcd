@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
+#include <iomanip>
 #include <cmath>
 #include <omp.h>
 
@@ -44,6 +45,15 @@ int main(int argc, char *argv[])
     funcaoAtivacao(IDF1[0],ATV1[0],NEURONS,SAMPLES);
     produtomatricial(Wy[0],ATV1[0],IDF2[0],OUTPUTS,NEURONS+1,SAMPLES);
     funcaoAtivacao(IDF2[0],ATV2[0],OUTPUTS,SAMPLES);
+    int i,j;
+    for(i = 0;i< OUTPUTS;i++)
+    {
+      for(j=0; j < SAMPLES;j++)
+      {
+        std::cout << std::setprecision(2) << std::fixed << ATV2[i][j] << "\t";
+      }
+      std::cout << "\n";
+    }
 
     return 0;
 }
