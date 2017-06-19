@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     float Wy[OUTPUTS][NEURONS+1];
     float IDF2[OUTPUTS][SAMPLES];
     float ATV2[OUTPUTS][SAMPLES];
-		random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1);
+    random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1);
     produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);
     funcaoAtivacao(IDF1[0],ATV1[0],NEURONS,SAMPLES);
     produtomatricial(Wy[0],ATV1[0],IDF2[0],OUTPUTS,NEURONS+1,SAMPLES);
