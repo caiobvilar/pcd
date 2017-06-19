@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 void Usage()
 {
     std::cout << "Some arguments are missing." << std::endl;
-    std::cout << "Usage: ./feed <NEURONS> <INPUTS> <OUTPUTS> <SAMPLES>" << std::endl;
+    std::cout << "Usage: ./feed <NEURONS>" << std::endl;
 }
 
 void produtomatricial(float *m1, float *m2, float *mprod, int row, int ig, int col)
