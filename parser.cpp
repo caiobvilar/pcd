@@ -5,41 +5,39 @@
 #include <vector>
 #include <string>
 
-fillData(std::string filename)
+void fillData(std::string filename)
 {
 	std::vector<std::string> testvector;
-	std::vector<std::string>::iterator itr,itr2;
-	std::ifstream file("out2.csv");	
-	std::string inpudata;
+	std::vector<int> input1,input2;
+	std::vector<std::string>::iterator itr,itr1,itr2;
+	std::ifstream file(filename.c_str());	
+	std::string inputdata;
 	std::size_t start=0,end=0;
 	while(file.good())
 	{
-		getline(file,inpudata,'\n');
-		testvector.push_back(inpudata);
+		getline(file,inputdata,'\n');
+		testvector.push_back(inputdata);
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////
-
 	for(itr = testvector.begin();itr != testvector.end();itr++)
 	{
 		end = (*itr).find(",",start);
-		set.AccelX.push_back((*itr).substr(start,end));
+		input1.push_back((*itr1).substr(start,end));
 		(*itr).erase(start,end+1);
 		end = (*itr).find(",",start);
-		set.AccelY.push_back((*itr).substr(start,end));
+		input2.push_back((*itr).substr(start,end));
 		(*itr).erase(start,end+1);
-		set.AccelZ.push_back((*itr));
 	}
-
-	for(itr2 = set.AccelX.begin(),
-			itr3 = set.AccelY.begin(),
-			itr4 = set.AccelZ.begin();
-			itr2 != set.AccelX.end(),
-			itr3 != set.AccelY.end();
-			itr2++,
-			itr3++,
-			itr4++)
+	for(itr1 = input1.begin(), itr2 = input2.begin();itr1 != input1.end(),itr2 != input2.end();itr1++,itr2++)
 	{
+		std::cout << (*itr1) << "|" << (*itr2) << std::endl;
 	}
-	return set;
 }
 
+int main(int argc, char *argv[])
+{
+	std::stringstream str;
+	str << argv[1];
+	fillData(str.str());
+	return 0;
+}
