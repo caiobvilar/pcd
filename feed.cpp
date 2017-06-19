@@ -2,10 +2,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
-<<<<<<< HEAD
-=======
 #include <iomanip>
->>>>>>> e93ae4dbba3555cb3759fae19d0061d795f9d487
 #include <cmath>
 #include <omp.h>
 
@@ -19,11 +16,7 @@
 //TODO:
 //  - processar dados de arquivo CSV para preencher os pesos das camadas.
 //  - modelo XOR que funcione para diferentes quantidades de neuronios
-<<<<<<< HEAD
-
-=======
 void random(float *m1, float *m2, int row1, int col1, int row2, int col2);
->>>>>>> e93ae4dbba3555cb3759fae19d0061d795f9d487
 void produtomatricial(float *m1, float *m2, float *mprod, int row, int ig, int col);
 void funcaoAtivacao(float *in,float *out,int row, int col);
 void Usage();
@@ -34,7 +27,6 @@ int main(int argc, char *argv[])
         Usage();
         return -1;
     }
-<<<<<<< HEAD
 
     int NEURONS, INPUTS, OUTPUTS, SAMPLES;
 
@@ -42,15 +34,6 @@ int main(int argc, char *argv[])
     INPUTS  = strtol(argv[2], NULL, 10);
     OUTPUTS = strtol(argv[3], NULL, 10);
     SAMPLES = strtol(argv[4], NULL, 10);
-
-=======
-    int NEURONS, INPUTS, OUTPUTS, SAMPLES;
-
-    NEURONS = strtol(argv[1], NULL, 10);
-    INPUTS  = strtol(argv[2], NULL, 10);
-    OUTPUTS = strtol(argv[3], NULL, 10);
-    SAMPLES = strtol(argv[4], NULL, 10);
->>>>>>> e93ae4dbba3555cb3759fae19d0061d795f9d487
     float X[INPUTS+1][SAMPLES];
     float Wx[NEURONS][INPUTS+1];
     float IDF1[NEURONS][SAMPLES];
@@ -58,16 +41,11 @@ int main(int argc, char *argv[])
     float Wy[OUTPUTS][NEURONS+1];
     float IDF2[OUTPUTS][SAMPLES];
     float ATV2[OUTPUTS][SAMPLES];
-<<<<<<< HEAD
-=======
 		random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1);
->>>>>>> e93ae4dbba3555cb3759fae19d0061d795f9d487
     produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);
     funcaoAtivacao(IDF1[0],ATV1[0],NEURONS,SAMPLES);
     produtomatricial(Wy[0],ATV1[0],IDF2[0],OUTPUTS,NEURONS+1,SAMPLES);
     funcaoAtivacao(IDF2[0],ATV2[0],OUTPUTS,SAMPLES);
-<<<<<<< HEAD
-=======
     int i,j;
     for(i = 0;i< OUTPUTS;i++)
     {
@@ -77,7 +55,6 @@ int main(int argc, char *argv[])
       }
       std::cout << "\n";
     }
->>>>>>> e93ae4dbba3555cb3759fae19d0061d795f9d487
 
     return 0;
 }
@@ -104,7 +81,6 @@ void produtomatricial(float *m1, float *m2, float *mprod, int row, int ig, int c
     }
   }
 }
-
 void funcaoAtivacao(float *in,float *out,int row, int col)
 {
     int i,j;
@@ -116,8 +92,6 @@ void funcaoAtivacao(float *in,float *out,int row, int col)
         }
     }
 }
-<<<<<<< HEAD
-=======
 void random(float *m1, float *m2, int row1, int col1, int row2, int col2)
 {
    srand(time(NULL));
@@ -137,4 +111,3 @@ void random(float *m1, float *m2, int row1, int col1, int row2, int col2)
      }
    }
 }
->>>>>>> e93ae4dbba3555cb3759fae19d0061d795f9d487
