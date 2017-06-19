@@ -23,9 +23,6 @@ int main(int argc, char *argv[])
 }
 
 
-
-
-
 void produtomatricial(float *in1,float *in2,float *out,int row1, int col1, int col2)
 {
   int i,j,k;
