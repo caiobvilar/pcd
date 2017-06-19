@@ -1,5 +1,5 @@
 # Para criar o arquivo, execute o codigo da seguinte forma:
-# python csv.py > <filename>.txt
+# python csv.py > <filename>.csv
 
 expectedValue = "00011011"
 
