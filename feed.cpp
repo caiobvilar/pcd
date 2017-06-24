@@ -121,3 +121,4 @@ void random(float *m1, float *m2, int row1, int col1, int row2, int col2)
      }
    }
 }
+void prod(float *m1, float *m2, float *result, int row, int row2, int col2);
