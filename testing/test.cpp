@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void random_Matrix(int* a, int cols, int rows){
+void random_Matrix(int *a, int cols, int rows){
   a = a + sizeof(int);
   *a=2;
 }
@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
   int DIMENSION = strtol(argv[1], NULL, 10);
   int a[DIMENSION][DIMENSION];
 
-  random_Matrix(&a[0][0], 4, 4);
+  random_Matrix(a[0], 4, 4);
 
   cout << "My A[0][1]: " << a[0][1] << endl;
 
