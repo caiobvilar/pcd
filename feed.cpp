@@ -41,11 +41,18 @@ int main(int argc, char *argv[])
     float Wy[OUTPUTS][NEURONS+1];// Activated induced local fields
     float IDF2[OUTPUTS][SAMPLES];// Induced Local field second layer
     float ATV2[OUTPUTS][SAMPLES];// Activated induced local fields
-    random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1);
-    produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);
+    random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1); //creates random weights for each input due to each neuron
+    produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);// multiplies each input to each weight assigned to them
+		/* pass the products of inputs by weights through 
+		 * the activation function of the first hidden layer*/
     funcaoAtivacao(IDF1[0],ATV1[0],NEURONS,SAMPLES);
+		/*Multiplies the output matrix from the activation function by
+		 * the output layer weight's*/
     produtomatricial(Wy[0],ATV1[0],IDF2[0],OUTPUTS,NEURONS+1,SAMPLES);
+		/* Passes the local induced field (last activated weights*inputs) through the
+		 * activation function of the output layer*/
     funcaoAtivacao(IDF2[0],ATV2[0],OUTPUTS,SAMPLES);
+		/* Thus we get the result from the neural network.*/
     int i,j;
     for(i = 0;i< OUTPUTS;i++)
     {
