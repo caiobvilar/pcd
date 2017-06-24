@@ -35,12 +35,12 @@ int main(int argc, char *argv[])
     //OUTPUTS = strtol(argv[3], NULL, 10);
     //SAMPLES = strtol(argv[4], NULL, 10);
     float X[INPUTS+1][SAMPLES] = {{0,0,1,1},{0,1,0,1}};
-    float Wx[NEURONS][INPUTS+1];
-    float IDF1[NEURONS][SAMPLES];
-    float ATV1[NEURONS][SAMPLES];
-    float Wy[OUTPUTS][NEURONS+1];
-    float IDF2[OUTPUTS][SAMPLES];
-    float ATV2[OUTPUTS][SAMPLES];
+    float Wx[NEURONS][INPUTS+1];// Hidden layer weights matrix
+    float IDF1[NEURONS][SAMPLES];// Induced Local field first layer
+    float ATV1[NEURONS][SAMPLES];// Activated induced local fields
+    float Wy[OUTPUTS][NEURONS+1];// Activated induced local fields
+    float IDF2[OUTPUTS][SAMPLES];// Induced Local field second layer
+    float ATV2[OUTPUTS][SAMPLES];// Activated induced local fields
     random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1);
     produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);
     funcaoAtivacao(IDF1[0],ATV1[0],NEURONS,SAMPLES);
