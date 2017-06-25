@@ -11,24 +11,21 @@
 
 using namespace std;
 
+void random_Matrix(int* a, int cols, int rows){
+  a = a + sizeof(int);
+  *a=2;
+}
+
 int main(int argc, char const *argv[])
 {
-  int first_layer = strtol(argv[1], NULL, 10);
-  int a[strtol(argv[1], NULL, 10)];
-  int i=0;
-  double start_time, end_time;
+  int DIMENSION = strtol(argv[1], NULL, 10);
+  int a[DIMENSION][DIMENSION];
 
-  start_time = omp_get_wtime();
-# pragma omp parallel for num_threads(2)
-  for(i=0; i<first_layer; i++){
-    //cout << "Eu sou a linda thread " << omp_get_thread_num() << endl;
-    a[i] = i;
-  }
-  end_time = omp_get_wtime();
-  cout << "Total time was: " << (end_time-start_time)*1000 << " ms" << endl;
+  random_Matrix(&a[0][0], 4, 4);
 
-  for(i=0; i<strtol(argv[1], NULL, 10); i++){
-    cout << a[i] << endl;
-  }
+  cout << "My A[0][1]: " << a[0][1] << endl;
+
+  cout << sizeof(int) << endl;
+
   return 0;
 }
