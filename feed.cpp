@@ -29,21 +29,24 @@ int main(int argc, char *argv[])
     }
 
     int NEURONS;
-
     NEURONS = strtol(argv[1], NULL, 10);
-    //INPUTS  = strtol(argv[2], NULL, 10);
-    //OUTPUTS = strtol(argv[3], NULL, 10);
-    //SAMPLES = strtol(argv[4], NULL, 10);
+
+    /*  Input vector */
     float X[INPUTS+1][SAMPLES] = {{0,0,1,1},{0,1,0,1}};
+
+    /* Hidden layer */
     float Wx[NEURONS][INPUTS+1];// Hidden layer weights matrix
     float IDF1[NEURONS][SAMPLES];// Induced Local field first layer
     float ATV1[NEURONS][SAMPLES];// Activated induced local fields
-    float Wy[OUTPUTS][NEURONS+1];// Activated induced local fields
+
+    /* Output Layer */
+    float Wy[OUTPUTS][NEURONS+1];// Output layer weights matrix
     float IDF2[OUTPUTS][SAMPLES];// Induced Local field second layer
     float ATV2[OUTPUTS][SAMPLES];// Activated induced local fields
+
     random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1); //creates random weights for each input due to each neuron
     produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);// multiplies each input to each weight assigned to them
-		/* pass the products of inputs by weights through 
+		/* pass the products of inputs by weights through
 		 * the activation function of the first hidden layer*/
     funcaoAtivacao(IDF1[0],ATV1[0],NEURONS,SAMPLES);
 		/*Multiplies the output matrix from the activation function by
