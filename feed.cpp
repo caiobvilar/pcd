@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	NEURONS = strtol(argv[1], NULL, 10);
 
 	/*  Input vector */
-	float X[INPUTS+1][SAMPLES] = {{0,0,1,1},{0,1,0,1}};
+	float X[INPUTS+1][SAMPLES] = {{0},{0}};
 
 	/* Hidden layer */
 	float Wx[NEURONS][INPUTS+1];// Hidden layer weights matrix
