@@ -11,7 +11,7 @@
 */
 #define OUTPUTS	1
 #define INPUTS  2
-#define SAMPLES 4
+#define SAMPLES 1
 
 //TODO:
 //  - processar dados de arquivo CSV para preencher os pesos das camadas.
