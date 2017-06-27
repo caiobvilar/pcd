@@ -10,8 +10,10 @@
 using namespace std;
 
 //#define DEBUG
+#define PRINTMATRIX
 
-void mult(int A[], int B[], int res[], int M, int L, int N, int thread_count)
+void mult(double A[], double B[], double res[],
+  int M, int L, int N, int thread_count)
 {
   /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
   int i, j, k;
@@ -21,30 +23,33 @@ void mult(int A[], int B[], int res[], int M, int L, int N, int thread_count)
 # pragma omp parallel num_threads(thread_count) \
    private(i, j, k) shared(A,B, res,M,L,N) reduction (+: result)
 {
-#     pragma omp for schedule(static) /* Use the defautt scheduling */
+# pragma omp for schedule(static) /* Use the defautt scheduling */
   for (i = 0; i < M; i++){
       for (j = 0; j < N; j++) {
           result = 0;
           for (k = 0; k < L; k++) {
               result+= A[k + i * L] * B[j + k * N];
           }
-          res[j + i * N] = (int)result; /*REMINDER: result is a Double variable*/
+          res[j + i * N] = result; /*REMINDER: result is a Double variable*/
       }
   }
 }
 } /* End of mult */
 
 
-void random_assngm(int a[], int length)
+void random_assngm(double a[], int length)
 {
-  //srand(time(NULL));
+  double random;
+  srand(time(NULL));
   for (int i = 0; i < length; i++) {
-    a[i] = i;
-    //a[i] = (rand()%10)/10.0;
+    //a[i] = i;
+    random = ((double)(rand()%10000))/10000;
+    cout << "Random: " << random << endl;
+    a[i] = random;
   }
 }
 
-void print_matrix(int a[], int rows, int cols)
+void print_matrix(double a[], int rows, int cols)
 {
   int j,i;
   for (i = 0; i < rows; i++){
@@ -53,7 +58,6 @@ void print_matrix(int a[], int rows, int cols)
     }
     cout << endl;
   }
-
   cout << "-----------" << endl;
 }
 
@@ -82,8 +86,8 @@ int main(int argc, char const *argv[]) {
     thread_count = strtol(argv[4], NULL, 10);
   # endif
 
-  int A[M*L], B[L*N], res[M*N];
-  int expectedResult[] = { 42, 48, 54, 114, 136, 158};
+  double A[M*L], B[L*N], res[M*N];
+  double expectedResult[] = { 42, 48, 54, 114, 136, 158};
   double start, finish;
 
   random_assngm(A, M*L);
@@ -93,6 +97,11 @@ int main(int argc, char const *argv[]) {
     print_matrix(A, M, L);
     print_matrix(B, L, N);
   # endif
+
+  print_matrix(A, M, L);
+  print_matrix(B, L, N);
+
+
 
   start = omp_get_wtime();
   mult(A, B, res, M, L, N, thread_count);

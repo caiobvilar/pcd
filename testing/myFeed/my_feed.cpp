@@ -14,7 +14,7 @@ using namespace std;
 #define INPUTS  2
 #define SAMPLES 1
 
-void Random_assngm(int a[], int length);
+void random_assngm(double a[], int length);
 void Matrix_mult(int A[], int B[], int res[], int M, int L, int N, int num_threads);
 void Usage();
 
@@ -37,7 +37,9 @@ int main(int argc, char const *argv[]) {
   /* Output Layer */
   float Wy[OUTPUTS*(NEURONS+1)];  // Output layer weights matrix
   float IDF2[OUTPUTS*SAMPLES];  // Induced Local field second layer
-  float ATV2[OUTPUTS*SAMPLES];  // Activated induced local fieldsyyyy
+  float ATV2[OUTPUTS*SAMPLES];  // Activated induced local fields
+
+
 
   return 0;
 }
@@ -48,6 +50,9 @@ void Usage()
 	cout << "Usage: ./feed <NEURONS> <thread_count> \n";
   exit(0);
 }
+
+
+
 
 
 void Matrix_mult(int A[], int B[], int res[], int M, int L, int N, int thread_count)
@@ -72,3 +77,15 @@ void Matrix_mult(int A[], int B[], int res[], int M, int L, int N, int thread_co
   }
 }
 } /* End of multiplication */
+
+void random_assngm(double a[], int length)
+{
+  double random;
+  srand(time(NULL));
+  for (int i = 0; i < length; i++) {
+    //a[i] = i;
+    random = ((double)(rand()%10000))/10000;
+    cout << "Random: " << random << endl;
+    a[i] = random;
+  }
+}
