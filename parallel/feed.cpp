@@ -79,16 +79,17 @@ void Usage()
 
 void produtomatricial(float *m1, float *m2, float *mprod, int row, int rows2, int col,int thread_count)
 {
+
 	int i,j,k;
-#	pragma omp parallel num_threads(thread_count) \
-		default(none)	private(i,j,k) shared(m1, m2, mprod, row, col, rows2)
+	double product; 
+
 	for(i=0; i<row; i++)
 	{
 		for(j=0; j<col; j++)
 		{
 			*mprod = 0;
-#			pragma omp for \
-					reduction()
+#			pragma omp parallel num_threads(thread_count) \
+					private(i,j,k) shared(m1, m2, mprod, row, col, rows2) reduction(+: mprod)
 			for(k=0; k<rows2; k++)
 			{
 				*mprod += (*(m1 + i*rows2 + k))*(*(m2 + k*col + j));
