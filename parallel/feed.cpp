@@ -18,7 +18,7 @@
 //  - processar dados de arquivo CSV para preencher os pesos das camadas.
 //  - modelo XOR que funcione para diferentes quantidades de neuronios
 void random(float *m1, float *m2, int row1, int col1, int row2, int col2);
-void produtomatricial(float *m1, float *m2, float *mprod, int row, int ig, int col);
+void produtomatricial(float *m1, float *m2, float *mprod, int row, int rows2, int col, int thread_count);
 void funcaoAtivacao(float *in,float *out,int row, int col);
 void Usage();
 //testando XOR com diferentes quantidades de NEURONS
@@ -29,8 +29,9 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	int NEURONS;
+	int NEURONS, thread_count;
 	NEURONS = strtol(argv[1], NULL, 10);
+	thread_count = strtol(argv[2], NULL, 10);
 
 	/*  Input vector */
 	float X[INPUTS+1][SAMPLES] = {{0},{0}};
@@ -46,13 +47,13 @@ int main(int argc, char *argv[])
 	float ATV2[OUTPUTS][SAMPLES];// Activated induced local fields
 
 	random(Wx[0],Wy[0],NEURONS,INPUTS+1, OUTPUTS, NEURONS+1); //creates random weights for each input due to each neuron
-	produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES);// multiplies each input to each weight assigned to them
+	produtomatricial(Wx[0],X[0],IDF1[0],NEURONS,INPUTS+1,SAMPLES, thread_count);// multiplies each input to each weight assigned to them
 	/* pass the products of inputs by weights through
 	 * the activation function of the first hidden layer*/
 	funcaoAtivacao(IDF1[0],ATV1[0],NEURONS,SAMPLES);
 	/*Multiplies the output matrix from the activation function by
 	 * the output layer weight's*/
-	produtomatricial(Wy[0],ATV1[0],IDF2[0],OUTPUTS,NEURONS+1,SAMPLES);
+	produtomatricial(Wy[0],ATV1[0],IDF2[0],OUTPUTS,NEURONS+1,SAMPLES, thread_count);
 	/* Passes the local induced field (last activated weights*inputs) through the
 	 * activation function of the output layer*/
 	funcaoAtivacao(IDF2[0],ATV2[0],OUTPUTS,SAMPLES);
@@ -73,20 +74,24 @@ int main(int argc, char *argv[])
 void Usage()
 {
 	std::cout << "Some arguments are missing." << std::endl;
-	std::cout << "Usage: ./feed <NEURONS>" << std::endl;
+	std::cout << "Usage: ./feed <NEURONS> <thread_count>" << std::endl;
 }
 
-void produtomatricial(float *m1, float *m2, float *mprod, int row, int ig, int col)
+void produtomatricial(float *m1, float *m2, float *mprod, int row, int rows2, int col,int thread_count)
 {
 	int i,j,k;
+#	pragma omp parallel num_threads(thread_count) \
+		default(none)	private(i,j,k) shared(m1, m2, mprod, row, col, rows2)
 	for(i=0; i<row; i++)
 	{
 		for(j=0; j<col; j++)
 		{
 			*mprod = 0;
-			for(k=0; k<ig; k++)
+#			pragma omp for \
+					reduction()
+			for(k=0; k<rows2; k++)
 			{
-				*mprod += (*(m1 + i*ig + k))*(*(m2 + k*col + j));
+				*mprod += (*(m1 + i*rows2 + k))*(*(m2 + k*col + j));
 			}
 			mprod++;
 		}
