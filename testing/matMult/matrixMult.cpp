@@ -20,29 +20,27 @@ void mult(int A[], int B[], int res[], int M, int L, int N, int thread_count)
 /* Creates the team of threads */
 # pragma omp parallel num_threads(thread_count) \
    private(i, j, k) shared(A,B, res,M,L,N) reduction (+: result)
-   //private(i, j, k, result) shared(A,B, res,M,L,N)
 {
-//# pragma omp for schedule(static) /* Use the defautt scheduling */
+#     pragma omp for schedule(static) /* Use the defautt scheduling */
   for (i = 0; i < M; i++){
-#     pragma omp for schedule(static)
       for (j = 0; j < N; j++) {
           result = 0;
           for (k = 0; k < L; k++) {
               result+= A[k + i * L] * B[j + k * N];
-              //res[j + i * N] += A[k + i * L] * B[j + k * N];
           }
-          res[j + i * N] = (int)result;
+          res[j + i * N] = (int)result; /*REMINDER: result is a Double variable*/
       }
   }
 }
-
 } /* End of mult */
 
 
 void random_assngm(int a[], int length)
 {
+  //srand(time(NULL));
   for (int i = 0; i < length; i++) {
     a[i] = i;
+    //a[i] = (rand()%10)/10.0;
   }
 }
 
@@ -59,7 +57,17 @@ void print_matrix(int a[], int rows, int cols)
   cout << "-----------" << endl;
 }
 
+void Usage(){
+  cout << "Error: Incorrect Arguments \n";
+  cout << "This program assumes the following multiplication: \n \n";
+  cout << "       A[M][L] x B[L][N] = RES[M][N] \n \n";
+  cout << "Usage: ./matrixMult <M> <L> <N> <thread_count> \n";
+  exit(0);
+}
+
 int main(int argc, char const *argv[]) {
+
+  if(argc < 5) Usage();
 
   int M,  L,  N, thread_count;
   # ifdef DEBUG
