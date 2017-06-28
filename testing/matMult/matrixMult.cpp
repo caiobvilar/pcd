@@ -12,7 +12,7 @@ using namespace std;
 //#define DEBUG
 #define PRINTMATRIX
 
-void mult(double A[], double B[], double res[],
+void Matrix_mult(double A[], double B[], double res[],
   int M, int L, int N, int thread_count)
 {
   /* THIS FUNCTION ASSUMES: A[M][L] x B[L][N] = RES[M][N] */
@@ -69,6 +69,25 @@ void Usage(){
   exit(0);
 }
 
+void Activation_func(double in[],double out[],int rows, int cols,
+                    int thread_count) /*  SIGMOID ACTIVATION FUNCTION */
+{
+  int i,j;
+# pragma omp parallel num_threads(thread_count) \
+     private(i, j) shared(in, out,rows, cols)
+  {
+#   pragma omp for schedule(static) /* Use the defautt scheduling */
+  	for(i=0;i < rows;i++)
+  	{
+  		for(j = 0;j< cols;j++)
+  		{
+  			out[i*cols+j] = 1.0/(1.0 + exp(-(in[i*cols+j])));
+  		}
+  	}
+  }
+}
+
+
 int main(int argc, char const *argv[]) {
 
   if(argc < 5) Usage();
@@ -104,7 +123,7 @@ int main(int argc, char const *argv[]) {
 
 
   start = omp_get_wtime();
-  mult(A, B, res, M, L, N, thread_count);
+  Matrix_mult(A, B, res, M, L, N, thread_count);
   finish = omp_get_wtime();
 
   cout << "Total time taken: " << finish-start << endl;
